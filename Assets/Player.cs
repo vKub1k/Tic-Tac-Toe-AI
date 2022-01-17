@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     System.Random random = new System.Random();
+    [SerializeField] GameObject _restartButton;
 
     string charPicked;
     string botChar;
@@ -79,6 +80,7 @@ public class Player : MonoBehaviour
 
         _SetActiveForGroup(_chooseAIGroup, false);
         _SetActiveForGroup(_playFieldGroup, true);
+        _restartButton.SetActive(true);
 
         _StartGame();
     }
@@ -111,17 +113,17 @@ public class Player : MonoBehaviour
     private void _AIMakeRandomMove()
     {
         List<int> freeCells = new List<int>();
-        Debug.Log("New list:");
+        //Debug.Log("New list:");
         for (int i = 0; i < 9; i++)
         {
             if (gameFieldData[i] == "")
             {
                 freeCells.Add(i);
-                Debug.Log(i);
+                //Debug.Log(i);
             }
         }
         int aiChoosenCell = freeCells[random.Next(freeCells.Count)];
-        Debug.Log($"Bot choose: {aiChoosenCell}");
+        //Debug.Log($"Bot choose: {aiChoosenCell}");
         gameFieldData[aiChoosenCell] = botChar;
 
         _RefreshFieldChars();
@@ -159,111 +161,148 @@ public class Player : MonoBehaviour
 
     public void _CheckIsSomeOneWin()
     {
+        string whoWin = "\\_(0_0)_/";
         if (gameFieldData[0] == gameFieldData[3] && gameFieldData[6] == gameFieldData[0] && gameFieldData[0] != "")
         {
             if (gameFieldData[0] == botChar)
             {
                 _SetColorForCell(0, 3, 6, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(0, 3, 6, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[0] == gameFieldData[1] && gameFieldData[2] == gameFieldData[0] && gameFieldData[0] != "")
+        if (gameFieldData[0] == gameFieldData[1] && gameFieldData[2] == gameFieldData[0] && gameFieldData[0] != "")
         {
 
             if (gameFieldData[0] == botChar)
             {
                 _SetColorForCell(0, 1, 2, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(0, 1, 2, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[1] == gameFieldData[4] && gameFieldData[7] == gameFieldData[1] && gameFieldData[1] != "")
+        if (gameFieldData[1] == gameFieldData[4] && gameFieldData[7] == gameFieldData[1] && gameFieldData[1] != "")
         {
 
             if (gameFieldData[1] == botChar)
             {
                 _SetColorForCell(1, 4, 7, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(1, 4, 7, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[2] == gameFieldData[5] && gameFieldData[8] == gameFieldData[2] && gameFieldData[2] != "")
+        if (gameFieldData[2] == gameFieldData[5] && gameFieldData[8] == gameFieldData[2] && gameFieldData[2] != "")
         {
 
             if (gameFieldData[2] == botChar)
             {
                 _SetColorForCell(2, 5, 8, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(2, 5, 8, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[3] == gameFieldData[4] && gameFieldData[5] == gameFieldData[3] && gameFieldData[3] != "")
+        if (gameFieldData[3] == gameFieldData[4] && gameFieldData[5] == gameFieldData[3] && gameFieldData[3] != "")
         {
 
             if (gameFieldData[3] == botChar)
             {
                 _SetColorForCell(3, 4, 5, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(3, 4, 5, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[6] == gameFieldData[7] && gameFieldData[8] == gameFieldData[6] && gameFieldData[6] != "")
+        if (gameFieldData[6] == gameFieldData[7] && gameFieldData[8] == gameFieldData[6] && gameFieldData[6] != "")
         {
 
             if (gameFieldData[6] == botChar)
             {
                 _SetColorForCell(6, 7, 8, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(6, 7, 8, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[0] == gameFieldData[4] && gameFieldData[8] == gameFieldData[0] && gameFieldData[0] != "")
+        if (gameFieldData[0] == gameFieldData[4] && gameFieldData[8] == gameFieldData[0] && gameFieldData[0] != "")
         {
 
             if (gameFieldData[0] == botChar)
             {
                 _SetColorForCell(0, 4, 8, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(0, 4, 8, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (gameFieldData[2] == gameFieldData[4] && gameFieldData[6] == gameFieldData[2] && gameFieldData[2] != "")
+        if (gameFieldData[2] == gameFieldData[4] && gameFieldData[6] == gameFieldData[2] && gameFieldData[2] != "")
         {
             if (gameFieldData[2] == botChar)
             {
                 _SetColorForCell(2, 4, 6, "red");
+                whoWin = "bot";
             }
             else
             {
                 _SetColorForCell(2, 4, 6, "green");
+                whoWin = "player";
             }
             gameEnd = true;
         }
-        else if (Array.IndexOf(gameFieldData, "") < 0)
+        if (Array.IndexOf(gameFieldData, "") < 0)
         {
             gameEnd = true;
+            Debug.Log($"Winner: {whoWin}");
         }
+    }
+
+    public void _ResetAllValues()
+    {
+        gameEnd = false;
+        gameFieldData = new string[9] { "", "", "", "", "", "", "", "", "" };
+
+        _SetActiveForGroup(_chooseCharGroup, true);
+
+        _SetActiveForGroup(_playFieldGroup, false);
+        _SetActiveForGroup(_chooseAIGroup, false);
+
+
+        for (int i = 0; i < 9; i++)
+        {
+            _playFieldGroup[i].GetComponent<Image>().color = new Color(0.345098f, 0.345098f, 0.345098f);
+        }
+
+        _RefreshFieldChars();
     }
 }

@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class Restart : MonoBehaviour
 {
+    [SerializeField] Player _player;
     public void _Restart()
     {
-        SceneManager.LoadScene(0);
+        _player._ResetAllValues();
     }
 }
