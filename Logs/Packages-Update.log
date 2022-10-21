@@ -61,3 +61,16 @@ The following packages were updated:
   com.unity.timeline from version 1.4.8 to 1.6.4
 The following packages were removed:
   com.unity.device-simulator@3.0.3-preview
+
+=== Sat Oct 22 00:05:05 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.2d.animation from version 7.0.5 to 7.0.7
+  com.unity.2d.psdimporter from version 6.0.3 to 6.0.5
+  com.unity.2d.spriteshape from version 7.0.4 to 7.0.6
+  com.unity.ide.rider from version 3.0.14 to 3.0.15
+  com.unity.ide.visualstudio from version 2.0.15 to 2.0.16
+  com.unity.mobile.notifications from version 2.0.1 to 2.0.2
